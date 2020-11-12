@@ -1,13 +1,11 @@
 package com.demo.baseball;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-public class ThrowBallTest {
+public class PitcherTest {
 
     public static void randomThrowBallsTest() {
 
         // given
-        ThrowBall throwBall = new ThrowBall();
+        Pitcher throwBall = new Pitcher();
 
         // when & then
         throwBall.randomThrowBalls().stream().forEach(System.out::println);
@@ -15,6 +13,6 @@ public class ThrowBallTest {
 
     public static void main(String[] args) {
 
-        ThrowBallTest.randomThrowBallsTest();
+        PitcherTest.randomThrowBallsTest();
     }
 }

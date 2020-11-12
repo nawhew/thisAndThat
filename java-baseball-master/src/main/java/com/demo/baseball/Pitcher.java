@@ -2,7 +2,7 @@ package com.demo.baseball;
 
 import java.util.*;
 
-public class ThrowBall {
+public class Pitcher {
 
     private static final int DEFAULT_LIST_SIZE = 3;
     private int listSize;
@@ -11,11 +11,11 @@ public class ThrowBall {
     private String input;
     private List<Integer> numbers;
 
-    public ThrowBall() {
+    public Pitcher() {
         this(DEFAULT_LIST_SIZE);
     }
 
-    private ThrowBall(int size) {
+    private Pitcher(int size) {
         this.numbers = new ArrayList<>(size);
         this.listSize = size;
     }
@@ -38,6 +38,5 @@ public class ThrowBall {
             }
         }
     }
-
 
 }
