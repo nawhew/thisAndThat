@@ -6,8 +6,6 @@ public class Pitcher {
 
     private static final int DEFAULT_LIST_SIZE = 3;
     private int listSize;
-
-    private final Random random = new Random();
     private String input;
     private List<Integer> numbers;
 
@@ -20,23 +18,19 @@ public class Pitcher {
         this.listSize = size;
     }
 
-    public List<Integer> randomThrowBalls() {
-        for (int i = 0; i < this.listSize; i++) {
-            this.numbers.add(this.randomThrowBall());
-        }
-
-        return this.numbers;
+    public static int getDefaultListSize() {
+        return DEFAULT_LIST_SIZE;
     }
 
-    public int randomThrowBall() {
-        int number = 0;
-
-        while (true) {
-            number = this.random.nextInt(10);
-            if (number != 0 && !this.numbers.contains(number)) {
-                return number;
-            }
-        }
+    public int getListSize() {
+        return listSize;
     }
 
+    public String getInput() {
+        return input;
+    }
+
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
 }
