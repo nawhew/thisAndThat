@@ -40,10 +40,4 @@ public class ThrowBall {
     }
 
 
-    public static void main(String[] args) {
-        ThrowBall throwBall = new ThrowBall();
-
-        throwBall.randomThrowBalls().stream().forEach(System.out::println);
-    }
-
 }
