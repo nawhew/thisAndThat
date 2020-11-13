@@ -19,10 +19,10 @@ public class PitcherController {
 
     public List<Integer> randomThrowBalls() {
         for (int i = 0; i < PitcherController.getPitcher().getListSize(); i++) {
-            PitcherController.getPitcher().getNumbers().add(this.randomThrowBall());
+            PitcherController.getPitcher().getBalls().add(this.randomThrowBall());
         }
 
-        return PitcherController.getPitcher().getNumbers();
+        return PitcherController.getPitcher().getBalls();
     }
 
     public int randomThrowBall() {
@@ -30,7 +30,7 @@ public class PitcherController {
 
         while (true) {
             number = this.random.nextInt(10);
-            if (number != 0 && !PitcherController.getPitcher().getNumbers().contains(number)) {
+            if (number != 0 && !PitcherController.getPitcher().getBalls().contains(number)) {
                 return number;
             }
         }
