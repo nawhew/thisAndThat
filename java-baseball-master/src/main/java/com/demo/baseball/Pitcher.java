@@ -7,14 +7,14 @@ public class Pitcher {
     private static final int DEFAULT_LIST_SIZE = 3;
     private int listSize;
     private String input;
-    private List<Integer> numbers;
+    private List<Integer> balls;
 
     public Pitcher() {
         this(DEFAULT_LIST_SIZE);
     }
 
     private Pitcher(int size) {
-        this.numbers = new ArrayList<>(size);
+        this.balls = new ArrayList<>(size);
         this.listSize = size;
     }
 
@@ -30,7 +30,7 @@ public class Pitcher {
         return input;
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
+    public List<Integer> getBalls() {
+        return balls;
     }
 }
