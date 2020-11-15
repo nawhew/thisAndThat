@@ -32,9 +32,7 @@ public class RefereeController {
     public void foo() {
 
         for (int ball : this.hittersBall) {
-            Decision decision = makeDecision(ball);
-
-
+            this.addDecision(makeDecision(ball));
         }
     }
 
