@@ -32,11 +32,11 @@ public class RefereeController {
     public void foo() {
 
         for (int ball : this.hittersBall) {
+            Decision decision = makeDecision(ball);
 
 
         }
     }
-
 
     public Decision makeDecision(int ball) {
         if (this.pitchersBall.contains(ball)) {
@@ -46,5 +46,32 @@ public class RefereeController {
             return Decision.BALL;
         }
         return Decision.NONE;
+    }
+
+    public void addDecision(Decision decision) {
+        if(decision == Decision.STRIKE) {
+            this.referee.addStrike();
+        } else if(decision == Decision.BALL) {
+            this.referee.addBall();;
+        }
+        this.referee.addCount();
+    }
+
+    public String toStringDecision() {
+        StringBuilder decision = new StringBuilder();
+
+        if(this.referee.getStrike() > 0) {
+            decision.append(this.referee.getStrike()).append(" 스트라이크 ");
+        }
+
+        if (this.referee.getBall() > 0) {
+            decision.append(this.referee.getBall()).append(" 볼 ");
+        }
+
+        if(this.referee.getCount() == 3 && this.referee.getStrike() == 0 && this.referee.getBall() == 0) {
+            decision.append("NOTHING");
+        }
+
+        return decision.toString();
     }
 }

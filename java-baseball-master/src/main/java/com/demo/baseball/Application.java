@@ -12,7 +12,6 @@ public class Application {
             String next = scanner.next();
 
 
-
         }
     }
 }
