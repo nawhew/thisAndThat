@@ -6,6 +6,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 @Component
@@ -22,6 +24,10 @@ public class FileExtractRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         // get File from system.in's file name
         File gotFile = this.getFile();
+
+        for (File file : this.getFilterFileList(gotFile)) {
+
+        }
 
     }
 
@@ -54,4 +60,41 @@ public class FileExtractRunner implements ApplicationRunner {
         return file;
     }
 
+    /**
+     * check if it's a directory, and return file list.
+     * if parameter is not directory, return file list have one file.
+     * @param file
+     * @return
+     */
+    public File[] getFileList(File file) {
+        if (file.isDirectory()) {
+            return file.listFiles();
+        }
+        return new File[]{file};
+    }
+
+    /**
+     * Overloading method
+     * @param file
+     * @return
+     */
+    public List<File> getFilterFileList(File file) {
+        return this.getFilterFileList(this.getFileList(file));
+    }
+
+    /**
+     * get FileList only file
+     * @param files
+     * @return
+     */
+    public List<File> getFilterFileList(File[] files) {
+        List<File> fileList = new ArrayList<>();
+
+        for (File file : files) {
+            if(file.isFile()) {
+                fileList.add(file);
+            }
+        }
+        return fileList;
+    }
 }
