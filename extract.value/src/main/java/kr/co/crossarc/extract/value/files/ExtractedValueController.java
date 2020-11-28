@@ -2,13 +2,13 @@ package kr.co.crossarc.extract.value.files;
 
 import java.util.Map;
 
-public class ExtractedValueController {
+public class ExtractedValueController<V> {
 
-    private Map<String, ExtractedValue<Double>> extractedValueMap;
+    private Map<String, ExtractedValue<V>> extractedValueMap;
 
     public void createExtractedValue(String key) {
         if(this.extractedValueMap.containsKey(key)) {
-            this.extractedValueMap.put(key, new ExtractedValue<Double>(key));
+            this.extractedValueMap.put(key, new ExtractedValue<V>(key));
         }
     }
 
@@ -17,7 +17,7 @@ public class ExtractedValueController {
      * @param key
      * @param value
      */
-    public void addValue(String key, Double value) {
+    public void addValue(String key, V value) {
         // check and init
         createExtractedValue(key);
 
