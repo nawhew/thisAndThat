@@ -3,7 +3,9 @@ package kr.co.crossarc.extract.value.file.rcs;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter @Setter
@@ -13,11 +15,11 @@ public class ExtractedValue<V> {
 
     private String unit;
 
-    private Set<V> values;
+    private List<V> values;
 
     public ExtractedValue(String key) {
         this.key = key;
-        this.values = new HashSet<>();
+        this.values = new ArrayList<>();
     }
 
     @Override
