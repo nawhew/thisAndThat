@@ -45,7 +45,7 @@ public class RCSFileParser {
     }
 
     public boolean isDataFormat(String line) {
-        return line.startsWith("    ");
+        return line.startsWith("    ") && !line.startsWith("    [[[*]]]");
     }
 
     /**
@@ -104,7 +104,7 @@ public class RCSFileParser {
     public Map.Entry<String, Map.Entry<String, String>> parsedEqual(String line) {
         int lastIndex = line.lastIndexOf(DELIMITER_EQUAL);
         String key = line.substring(0, lastIndex);
-        String val = line.substring(lastIndex, line.length());
+        String val = line.substring(lastIndex + 1, line.length());
 
         return createKeyValueSimpleEntry(key, val);
     }

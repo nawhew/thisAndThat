@@ -29,6 +29,9 @@ public class ExtractedValueController {
             }
         } catch (Exception e) {
             log.error("추출 값 추가 중 오류.");
+            if(entry != null && (value = entry.getValue()) != null) {
+                log.error("key: " + entry.getKey() + " / value: " + value.getKey() + " / unit: " + value.getValue());
+            }
             log.error(ExceptionUtils.getStackTrace(e));
             throw e;
         }
