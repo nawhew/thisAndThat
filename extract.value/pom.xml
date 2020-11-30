@@ -38,6 +38,15 @@
 			<version>1.18.16</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<!-- commons.lang3
+				https://mvnrepository.com/artifact/org.apache.commons/commons-lang3-->
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.11</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -1,5 +1,7 @@
 package kr.co.crossarc.extract.value.file.rcs;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
@@ -7,13 +9,25 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 @Controller
+@Slf4j
 public class ExtractedValueController {
 
     private Map<String, ExtractedValue<BigDecimal>> extractedValueMap;
 
-    public void createExtractedValue(String key) {
+    public void createExtractedValue(String key, String unit) {
         if(this.extractedValueMap.containsKey(key)) {
-            this.extractedValueMap.put(key, new ExtractedValue<BigDecimal>(key));
+            this.extractedValueMap.put(key, new ExtractedValue<BigDecimal>(key, unit));
+        }
+    }
+
+    public void addValue(Map.Entry<String, Map.Entry<String, String>> entry) throws NumberFormatException{
+        Map.Entry<String, String> value = entry.getValue();
+        try {
+            this.addValue(entry.getKey(), new BigDecimal(value.getKey()), value.getValue());
+        } catch (Exception e) {
+            log.error("추출 값 추가 중 오류.");
+            log.error(ExceptionUtils.getStackTrace(e));
+            throw e;
         }
     }
 
@@ -22,9 +36,9 @@ public class ExtractedValueController {
      * @param key
      * @param value
      */
-    public void addValue(String key, BigDecimal value) {
+    public void addValue(String key, BigDecimal value, String unit) {
         // check and init
-        createExtractedValue(key);
+        this.createExtractedValue(key, unit);
 
         // add value
         this.extractedValueMap.get(key).getValues().add(value);

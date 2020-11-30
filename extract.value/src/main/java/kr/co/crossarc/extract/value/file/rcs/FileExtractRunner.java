@@ -33,7 +33,8 @@ public class FileExtractRunner implements ApplicationRunner {
         File gotFile = this.getFile();
 
         for (File file : this.getFilterFileList(gotFile)) {
-
+            FileExtractor fileExtractor = new FileExtractor(file, this.rcsFileParser, this.extractedValueController);
+            fileExtractor.read();
         }
 
     }

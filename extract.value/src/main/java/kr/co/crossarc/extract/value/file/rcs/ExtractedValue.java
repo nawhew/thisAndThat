@@ -17,8 +17,9 @@ public class ExtractedValue<V> {
 
     private List<V> values;
 
-    public ExtractedValue(String key) {
+    public ExtractedValue(String key, String unit) {
         this.key = key;
+        this.unit = unit;
         this.values = new ArrayList<>();
     }
 
