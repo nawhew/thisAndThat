@@ -33,6 +33,7 @@ public class FileExtractRunner implements ApplicationRunner {
         File gotFile = this.getFile();
 
         for (File file : this.getFilterFileList(gotFile)) {
+            log.info("file.getAbsolutePath() : " + file.getAbsolutePath());
             FileExtractor fileExtractor = new FileExtractor(file, this.rcsFileParser, this.extractedValueController);
             fileExtractor.read();
         }
@@ -51,6 +52,7 @@ public class FileExtractRunner implements ApplicationRunner {
             System.out.println("파일 혹은 디렉토리 경로를 입력하세요.");
             String fileName = this.scanner.next();
             file = this.makeFile(fileName);
+            log.info("fileName : " + fileName);
         }
         return file;
     }

@@ -4,7 +4,7 @@ import kr.co.crossarc.extract.value.file.rcs.ExtractedValueController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class ApplicationConfig {
 
     @Bean

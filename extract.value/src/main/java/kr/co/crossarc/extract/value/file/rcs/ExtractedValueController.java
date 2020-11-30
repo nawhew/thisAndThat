@@ -6,24 +6,27 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 @Slf4j
 public class ExtractedValueController {
 
-    private Map<String, ExtractedValue<BigDecimal>> extractedValueMap;
+    private Map<String, ExtractedValue<BigDecimal>> extractedValueMap = new HashMap<>();
 
     public void createExtractedValue(String key, String unit) {
-        if(this.extractedValueMap.containsKey(key)) {
+        if(!this.extractedValueMap.containsKey(key)) {
             this.extractedValueMap.put(key, new ExtractedValue<BigDecimal>(key, unit));
         }
     }
 
     public void addValue(Map.Entry<String, Map.Entry<String, String>> entry) throws NumberFormatException{
-        Map.Entry<String, String> value = entry.getValue();
+        Map.Entry<String, String> value = null;
         try {
-            this.addValue(entry.getKey(), new BigDecimal(value.getKey()), value.getValue());
+            if(entry != null && (value = entry.getValue()) != null) {
+                this.addValue(entry.getKey(), new BigDecimal(value.getKey()), value.getValue());
+            }
         } catch (Exception e) {
             log.error("추출 값 추가 중 오류.");
             log.error(ExceptionUtils.getStackTrace(e));

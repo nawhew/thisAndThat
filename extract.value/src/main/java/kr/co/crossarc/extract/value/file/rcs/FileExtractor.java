@@ -1,8 +1,11 @@
 package kr.co.crossarc.extract.value.file.rcs;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.*;
 import java.util.Map;
 
+@Slf4j
 public class FileExtractor {
 
     private final RCSFileParser rcsFileParser;
@@ -44,9 +47,16 @@ public class FileExtractor {
      */
     public void read() throws NumberFormatException, IOException {
         String line = null;
+        int lineNumber = 0;
         while ((line = this.bufferedReader.readLine()) != null) {
-            Map.Entry<String, Map.Entry<String, String>> entry = this.rcsFileParser.parse(line);
-            this.extractedValueController.addValue(entry);
+            try {
+                lineNumber++;
+                Map.Entry<String, Map.Entry<String, String>> entry = this.rcsFileParser.parse(line);
+                this.extractedValueController.addValue(entry);
+            } catch (NumberFormatException e) {
+                log.info("get line(" + lineNumber + ") : " + line);
+                e.printStackTrace();
+            }
         }
     }
 

@@ -29,6 +29,10 @@ public class RCSFileParser {
      * @return Entry: key, value(value, unit)
      */
     public Map.Entry<String, Map.Entry<String, String>> parse(String line) {
+        if (!isDataFormat(line)) {
+            return null;
+        }
+
         if(this.isEqualFormat(line)) {
             return parsedEqual(line);
         } else if(this.isColonFormat(line)) {
@@ -38,6 +42,10 @@ public class RCSFileParser {
         }
 
         return null;
+    }
+
+    public boolean isDataFormat(String line) {
+        return line.startsWith("    ");
     }
 
     /**
@@ -121,9 +129,13 @@ public class RCSFileParser {
      */
     public Map.Entry<String, String> parsedValue(String value) {
         String[] splitValue = value.trim().split("\\s");
+        String unit = "";
+        if(splitValue.length > 1) {
+            unit = splitValue[1].split("\\.")[0];
+        }
         return new AbstractMap.SimpleEntry<String, String>(
                     splitValue[0]
-                    , splitValue[1].split("\\.")[0]
+                    , unit
             );
     }
 }
