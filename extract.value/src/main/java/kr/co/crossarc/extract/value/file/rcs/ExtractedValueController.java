@@ -1,14 +1,15 @@
-package kr.co.crossarc.extract.value.files;
+package kr.co.crossarc.extract.value.file.rcs;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
-public class ExtractedValueController<V> {
+public class ExtractedValueController {
 
-    private Map<String, ExtractedValue<V>> extractedValueMap;
+    private Map<String, ExtractedValue<BigDecimal>> extractedValueMap;
 
     public void createExtractedValue(String key) {
         if(this.extractedValueMap.containsKey(key)) {
-            this.extractedValueMap.put(key, new ExtractedValue<V>(key));
+            this.extractedValueMap.put(key, new ExtractedValue<BigDecimal>(key));
         }
     }
 
@@ -17,7 +18,7 @@ public class ExtractedValueController<V> {
      * @param key
      * @param value
      */
-    public void addValue(String key, V value) {
+    public void addValue(String key, BigDecimal value) {
         // check and init
         createExtractedValue(key);
 

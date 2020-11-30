@@ -1,6 +1,6 @@
 package kr.co.crossarc.extract.value.config;
 
-import kr.co.crossarc.extract.value.files.ExtractedValueController;
+import kr.co.crossarc.extract.value.file.rcs.ExtractedValueController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfig {
 
     @Bean
-    public ExtractedValueController<Double> extractedValueController() {
-        return new ExtractedValueController<Double>();
+    public ExtractedValueController extractedValueController() {
+        return new ExtractedValueController();
     }
 }
