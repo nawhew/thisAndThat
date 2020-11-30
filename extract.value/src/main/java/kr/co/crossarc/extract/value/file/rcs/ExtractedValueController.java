@@ -44,4 +44,13 @@ public class ExtractedValueController {
         this.extractedValueMap.get(key).getValues().add(value);
     }
 
+    /**
+     * print all extracted-values
+     */
+    public void printSummary() {
+        this.extractedValueMap.keySet().stream().forEach(
+                key -> System.out.println(this.extractedValueMap.get(key).toString())
+        );
+    }
+
 }

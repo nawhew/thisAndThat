@@ -37,6 +37,8 @@ public class FileExtractRunner implements ApplicationRunner {
             fileExtractor.read();
         }
 
+        this.extractedValueController.printSummary();
+
     }
 
     /**
