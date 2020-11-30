@@ -1,8 +1,12 @@
 package kr.co.crossarc.extract.value.file.rcs;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+
 import java.math.BigDecimal;
 import java.util.Map;
 
+@Controller
 public class ExtractedValueController {
 
     private Map<String, ExtractedValue<BigDecimal>> extractedValueMap;

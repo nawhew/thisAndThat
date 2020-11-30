@@ -1,6 +1,8 @@
 package kr.co.crossarc.extract.value.file.rcs;
 
 
+import org.springframework.stereotype.Component;
+
 import java.util.AbstractMap;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ import java.util.Map;
  * case 4. key = detail = val
  * value is value + white space + unit + end
  */
+@Component
 public class RCSFileParser {
 
     private static final String DELIMITER_COLON = ":";

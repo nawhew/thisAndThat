@@ -1,6 +1,7 @@
 package kr.co.crossarc.extract.value.file.rcs;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -14,9 +15,15 @@ import java.util.Scanner;
 @Slf4j
 public class FileExtractRunner implements ApplicationRunner {
 
+    private final ExtractedValueController extractedValueController;
+    private final RCSFileParser rcsFileParser;
+
     private Scanner scanner;
 
-    public FileExtractRunner() {
+    @Autowired
+    public FileExtractRunner(ExtractedValueController extractedValueController, RCSFileParser rcsFileParser) {
+        this.extractedValueController = extractedValueController;
+        this.rcsFileParser = rcsFileParser;
         this.scanner = new Scanner(System.in);
     }
 
