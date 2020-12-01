@@ -103,10 +103,21 @@ public class RCSFileParser {
      */
     public Map.Entry<String, Map.Entry<String, String>> parsedEqual(String line) {
         int lastIndex = line.lastIndexOf(DELIMITER_EQUAL);
-        String key = line.substring(0, lastIndex);
+        String key = this.removeKeyDetails(line.substring(0, lastIndex));
         String val = line.substring(lastIndex + 1, line.length());
 
         return createKeyValueSimpleEntry(key, val);
+    }
+
+    /**
+     * 키에 '=' 표시가 있는 경우, 첫번째 표시 앞의 값을 key로 반환합니다.
+     * @param key
+     * @return
+     */
+    public String removeKeyDetails(String key) {
+        return key.contains(DELIMITER_EQUAL)
+                ? key.split(DELIMITER_EQUAL)[0]
+                : key;
     }
 
     /**

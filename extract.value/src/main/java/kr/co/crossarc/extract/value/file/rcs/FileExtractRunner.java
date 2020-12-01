@@ -1,6 +1,7 @@
 package kr.co.crossarc.extract.value.file.rcs;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -67,7 +68,8 @@ public class FileExtractRunner implements ApplicationRunner {
         try {
             file = new File(fileName);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("파일 생성 중 오류");
+            log.error(ExceptionUtils.getStackTrace(e));
         }
         return file;
     }
