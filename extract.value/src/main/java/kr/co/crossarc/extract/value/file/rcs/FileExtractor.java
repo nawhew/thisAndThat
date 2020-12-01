@@ -49,7 +49,6 @@ public class FileExtractor {
         String line = null;
 
         while ((line = this.readLines()) != null) {
-            log.info(line);
             this.addValues(line);
         }
     }
@@ -59,7 +58,6 @@ public class FileExtractor {
         String line = null;
 
         if ((line = this.bufferedReader.readLine()) != null && line.length() > 0) {
-            log.info("read line : " + line);
             sbLine.append(line);
             readGroupFormatNextLine(sbLine, line);
         }
