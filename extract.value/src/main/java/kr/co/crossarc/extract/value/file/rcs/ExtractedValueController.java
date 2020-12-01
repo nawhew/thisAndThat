@@ -2,12 +2,12 @@ package kr.co.crossarc.extract.value.file.rcs;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -49,6 +49,50 @@ public class ExtractedValueController {
         // add value
         this.extractedValueMap.get(key).getValues().add(value);
     }
+
+    /**
+     * calculate max value from extracted value map
+     * @param key
+     * @return
+     */
+    public Optional<BigDecimal> calculateMax(String key) {
+        return this.extractedValueMap.get(key).getValues().stream().max(BigDecimal::compareTo);
+    }
+
+
+    /**
+     * calculate min value from extracted value map
+     * @param key
+     * @return
+     */
+    public Optional<BigDecimal> calculateMin(String key) {
+        return this.extractedValueMap.get(key).getValues().stream().min(BigDecimal::compareTo);
+    }
+
+    public int calculateCount(String key) {
+        return this.extractedValueMap.get(key).getValues().size();
+    }
+
+    public Optional<BigDecimal> calculateTotalSum(String key) {
+        BigDecimal sum = new BigDecimal(0);
+        this.extractedValueMap.get(key).getValues().stream().forEach(sum::add);
+        return Optional.of(sum);
+    }
+
+    public Optional<BigDecimal> calculateAverage(String key) {
+        Optional<BigDecimal> optionalSum = this.calculateTotalSum(key);
+        BigDecimal sum = null;
+        if(optionalSum.isPresent()) {
+            sum = optionalSum.get();
+        }
+        int count = this.calculateCount(key);
+
+        if(sum != null) {
+            return Optional.of(sum.divide(new BigDecimal(count)));
+        }
+        return Optional.empty();
+    }
+
 
     /**
      * print all extracted-values
