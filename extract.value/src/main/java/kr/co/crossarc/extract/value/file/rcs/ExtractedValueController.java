@@ -69,16 +69,31 @@ public class ExtractedValueController {
         return this.extractedValueMap.get(key).getValues().stream().min(BigDecimal::compareTo);
     }
 
+    /**
+     * get count from extracted value map
+     * @param key
+     * @return
+     */
     public int calculateCount(String key) {
         return this.extractedValueMap.get(key).getValues().size();
     }
 
+    /**
+     * calculate total sum from extracted value map
+     * @param key
+     * @return
+     */
     public Optional<BigDecimal> calculateTotalSum(String key) {
         BigDecimal sum = new BigDecimal(0);
         this.extractedValueMap.get(key).getValues().stream().forEach(sum::add);
         return Optional.of(sum);
     }
 
+    /**
+     * calculate average from extracted value map
+     * @param key
+     * @return
+     */
     public Optional<BigDecimal> calculateAverage(String key) {
         Optional<BigDecimal> optionalSum = this.calculateTotalSum(key);
         BigDecimal sum = null;
