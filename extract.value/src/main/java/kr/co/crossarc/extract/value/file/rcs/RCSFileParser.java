@@ -3,8 +3,7 @@ package kr.co.crossarc.extract.value.file.rcs;
 
 import org.springframework.stereotype.Component;
 
-import java.util.AbstractMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * RCS File Data format
@@ -37,10 +36,15 @@ public class RCSFileParser {
             return parsedEqual(line);
         } else if(this.isColonFormat(line)) {
             return parsedColon(line);
-        } else if(this.isGroupFormat(line)) {
-            return parsedGroup(line);
         }
 
+        return null;
+    }
+
+    public List<Map.Entry<String, Map.Entry<String, String>>> parses(String line) {
+        if(this.isGroupFormat(line)) {
+            return parsedGroup(line);
+        }
         return null;
     }
 
@@ -55,7 +59,14 @@ public class RCSFileParser {
      * @return
      */
     public boolean isGroupFormat(String line) {
-        return line.contains(DELIMITER_COLON) && line.contains(DELIMITER_EQUAL);
+        return line.contains(DELIMITER_COLON) && line.contains(DELIMITER_EQUAL) && this.containGroupKey(line);
+    }
+
+    public boolean containGroupKey(String line) {
+        String trimLine = line.trim();
+        return Arrays.stream(GroupKey.values()).anyMatch(groupKey -> {
+                    return groupKey.toString().equalsIgnoreCase(trimLine);
+                });
     }
 
     /**
@@ -79,9 +90,14 @@ public class RCSFileParser {
     }
 
     // yet
-    public Map.Entry<String, Map.Entry<String, String>> parsedGroup(String line) {
+    public List<Map.Entry<String, Map.Entry<String, String>>> parsedGroup(String line) {
+        String[] splitLine = line.split(DELIMITER_COLON)[1].trim().split(DELIMITER_COMMA);
+        List<Map.Entry<String, Map.Entry<String, String>>> entryList = new ArrayList<>();
 
-        return null;
+        for (String keyValue : splitLine) {
+            entryList.add(this.parse(keyValue));
+        }
+        return entryList;
     }
 
     /**

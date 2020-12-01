@@ -36,7 +36,7 @@ public class FileExtractRunner implements ApplicationRunner {
         for (File file : this.getFilterFileList(gotFile)) {
             log.info("file.getAbsolutePath() : " + file.getAbsolutePath());
             FileExtractor fileExtractor = new FileExtractor(file, this.rcsFileParser, this.extractedValueController);
-            fileExtractor.read();
+            fileExtractor.readFile();
         }
 
         this.extractedValueController.printSummary();

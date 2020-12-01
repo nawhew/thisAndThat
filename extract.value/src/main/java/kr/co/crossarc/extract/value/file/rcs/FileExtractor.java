@@ -45,18 +45,56 @@ public class FileExtractor {
      * @throws NumberFormatException
      * @throws IOException
      */
-    public void read() throws NumberFormatException, IOException {
+    public void readFile() throws NumberFormatException, IOException {
         String line = null;
-        int lineNumber = 0;
-        while ((line = this.bufferedReader.readLine()) != null) {
-            try {
-                lineNumber++;
-                Map.Entry<String, Map.Entry<String, String>> entry = this.rcsFileParser.parse(line);
-                this.extractedValueController.addValue(entry);
-            } catch (NumberFormatException e) {
-                log.info("get line(" + lineNumber + ") : " + line);
-                e.printStackTrace();
-            }
+
+        while ((line = this.readLines()) != null) {
+            log.info(line);
+            this.addValues(line);
+        }
+    }
+
+    public String readLines() throws IOException {
+        StringBuilder sbLine = new StringBuilder();
+        String line = null;
+
+        if ((line = this.bufferedReader.readLine()) != null && line.length() > 0) {
+            log.info("read line : " + line);
+            sbLine.append(line);
+            readGroupFormatNextLine(sbLine, line);
+        }
+
+        return line == null
+                ? null
+                : sbLine.toString();
+    }
+
+    private void readGroupFormatNextLine(StringBuilder sbLine, String line) throws IOException {
+        if(this.rcsFileParser.isGroupFormat(line)) {
+            sbLine.append(",").append(this.bufferedReader.readLine());
+        }
+    }
+
+    public void addValues(String line) {
+        if(!this.rcsFileParser.isGroupFormat(line)) {
+            addValue(line);
+            log.info("add line :" + line);
+            return;
+        }
+
+        for (String oneLine : line.split(":")[1].split(",")) {
+            addValue(oneLine);
+            log.info("add lines :" + line);
+        }
+    }
+
+    public void addValue(String line) {
+        try {
+            Map.Entry<String, Map.Entry<String, String>> entry = this.rcsFileParser.parse(line);
+            this.extractedValueController.addValue(entry);
+        } catch (NumberFormatException e) {
+            log.info("get error line : " + line);
+            e.printStackTrace();
         }
     }
 
