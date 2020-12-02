@@ -53,6 +53,11 @@ public class FileExtractor {
         }
     }
 
+    /**
+     * read line
+     * @return line
+     * @throws IOException
+     */
     public String readLines() throws IOException {
         StringBuilder sbLine = new StringBuilder();
         String line = null;
@@ -67,12 +72,22 @@ public class FileExtractor {
                 : sbLine.toString();
     }
 
+    /**
+     * if data format is group form, read next one line
+     * @param sbLine
+     * @param line
+     * @throws IOException
+     */
     private void readGroupFormatNextLine(StringBuilder sbLine, String line) throws IOException {
         if(this.rcsFileParser.isGroupFormat(line)) {
             sbLine.append(",").append(this.bufferedReader.readLine());
         }
     }
 
+    /**
+     * add extract values
+     * @param line
+     */
     public void addValues(String line) {
         if(!this.rcsFileParser.isGroupFormat(line)) {
             addValue(line);
@@ -86,6 +101,10 @@ public class FileExtractor {
         }
     }
 
+    /**
+     * add extract one value
+     * @param line
+     */
     public void addValue(String line) {
         try {
             Map.Entry<String, Map.Entry<String, String>> entry = this.rcsFileParser.parse(line);
