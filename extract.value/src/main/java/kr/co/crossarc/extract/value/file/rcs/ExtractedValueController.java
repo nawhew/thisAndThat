@@ -85,7 +85,9 @@ public class ExtractedValueController {
      */
     public Optional<BigDecimal> calculateTotalSum(String key) {
         BigDecimal sum = new BigDecimal(0);
-        this.extractedValueMap.get(key).getValues().stream().forEach(sum::add);
+        for (BigDecimal val : this.extractedValueMap.get(key).getValues()) {
+            sum = sum.add(val);
+        }
         return Optional.of(sum);
     }
 
@@ -125,11 +127,11 @@ public class ExtractedValueController {
     public void printSummary() {
 
         for (String key : this.extractedValueMap.keySet()) {
-            System.out.println("======= key : " + key + "(" + this.calculateCount(key) + ")");
+            System.out.println("========== key : " + key + " (" + this.calculateCount(key) + ")");
             System.out.println(this.extractedValueMap.get(key).toString());
-            this.calculateTotalSum(key).ifPresent(System.out::println);
-            this.calculateMax(key).ifPresent(System.out::println);
-            this.calculateMin(key).ifPresent(System.out::println);
+            this.calculateTotalSum(key).ifPresent(sum -> System.out.println("total sum : " + sum));
+            this.calculateMax(key).ifPresent(max -> System.out.println("max : " + max));
+            this.calculateMin(key).ifPresent(min -> System.out.println("min : " + min));
         }
 
     }

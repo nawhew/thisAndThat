@@ -91,13 +91,13 @@ public class FileExtractor {
     public void addValues(String line) {
         if(!this.rcsFileParser.isGroupFormat(line)) {
             addValue(line);
-            log.info("add line :" + line);
+            log.debug("add line :" + line);
             return;
         }
 
         for (String oneLine : line.split(":")[1].split(",")) {
             addValue(oneLine);
-            log.info("add lines :" + line);
+            log.debug("add lines :" + line);
         }
     }
 
