@@ -112,10 +112,26 @@ public class ExtractedValueController {
     /**
      * print all extracted-values
      */
-    public void printSummary() {
+    public void printAll() {
         this.extractedValueMap.keySet().stream().forEach(
                 key -> System.out.println(this.extractedValueMap.get(key).toString())
         );
+    }
+
+
+    /**
+     * print all extracted-values and calculate value
+     */
+    public void printSummary() {
+
+        for (String key : this.extractedValueMap.keySet()) {
+            System.out.println("======= key : " + key + "(" + this.calculateCount(key) + ")");
+            System.out.println(this.extractedValueMap.get(key).toString());
+            this.calculateTotalSum(key).ifPresent(System.out::println);
+            this.calculateMax(key).ifPresent(System.out::println);
+            this.calculateMin(key).ifPresent(System.out::println);
+        }
+
     }
 
 }
