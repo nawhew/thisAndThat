@@ -1,6 +1,7 @@
 package kr.co.crossarc.extract.value.file.rcs;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.*;
 import java.util.Map;
@@ -111,7 +112,7 @@ public class FileExtractor {
             this.extractedValueController.addValue(entry);
         } catch (NumberFormatException e) {
             log.info("get error line : " + line);
-            e.printStackTrace();
+            log.error(ExceptionUtils.getStackTrace(e));
         }
     }
 
