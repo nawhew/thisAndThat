@@ -12,6 +12,8 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class WallMarkRebarService {
+    private static final String REGEX_WALL_MARK_DELIMITER = "=";
+    private static final String PREFIX_WALL_MARK = "*.Wall Mark";
 
     private WallMarkRebarRepository wallMarkRebarRepository;
 
@@ -21,13 +23,13 @@ public class WallMarkRebarService {
 
     public Optional<String> findWallMark(String line) {
         if(this.containWallMark(line)) {
-            return Optional.of(line.split("=")[1].split(" ")[1]);
+            return Optional.of(line.split(REGEX_WALL_MARK_DELIMITER)[1].split(" ")[1]);
         }
         return Optional.empty();
     }
 
     private boolean containWallMark(String line) {
-        return line.trim().startsWith("*.Wall Mark");
+        return line.trim().startsWith(PREFIX_WALL_MARK);
     }
 
     public void saveWallMarkRebar(WallMarkRebarRequest wallMarkRebarRequest) {

@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Getter @Setter @ToString @Slf4j
 public class WallMarkRebarRequest {
+    private static final String REGEX_REBAR_DELIMITER = "@";
+    private static final String REGEX_REBAR_AS_DELEMITER = "\\.";
 
     private String wallId;
 
@@ -76,18 +78,18 @@ public class WallMarkRebarRequest {
     }
 
     private String findVerticalRebarDValue() {
-        return this.verticalRebar.split("@")[0].split("\\.")[1];
+        return this.verticalRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[1];
     }
 
     private int findVerticalRebarInterval() {
-        return Integer.parseInt(this.verticalRebar.split("@")[1]);
+        return Integer.parseInt(this.verticalRebar.split(REGEX_REBAR_DELIMITER)[1]);
     }
 
     private String findHorizonRebarDValue() {
-        return this.horizonRebar.split("@")[0].split("\\.")[1];
+        return this.horizonRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[1];
     }
 
     private int findHorizonRebarInterval() {
-        return Integer.parseInt(this.horizonRebar.split("@")[1]);
+        return Integer.parseInt(this.horizonRebar.split(REGEX_REBAR_DELIMITER)[1]);
     }
 }
