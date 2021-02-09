@@ -4,9 +4,10 @@ import kr.co.crossarc.extract.values.wallmark.domain.WallMarkRebar;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
-@Getter @Setter @ToString
-public class WallMarkRebarOrigin {
+@Getter @Setter @ToString @Slf4j
+public class WallMarkRebarRequest {
 
     private String wallId;
 
@@ -38,10 +39,10 @@ public class WallMarkRebarOrigin {
 
     private String endRebar;
 
-    public WallMarkRebarOrigin() {
+    public WallMarkRebarRequest() {
     }
 
-    public WallMarkRebarOrigin(String wallId, String line) {
+    public WallMarkRebarRequest(String wallId, String line) {
         String[] splitLine = line.split("\\s+");
         this.wallId = wallId;
         this.story = splitLine[0];
@@ -63,7 +64,7 @@ public class WallMarkRebarOrigin {
     }
 
     public WallMarkRebar toEntity() {
-        System.out.println("변경 요청 :" + this.toString());
+        log.trace("변경 요청 :" + this.toString());
         return WallMarkRebar.builder()
                 .wallId(this.wallId)
                 .story(this.story)

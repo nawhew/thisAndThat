@@ -1,25 +1,48 @@
 package kr.co.crossarc.extract.values.file.application;
 
+import kr.co.crossarc.extract.values.file.ui.InputView;
+import kr.co.crossarc.extract.values.wallmark.application.WallMarkRebarService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Component
+@Slf4j
 public class FileRunner implements ApplicationRunner {
 
     private final FileExtractor fileExtractor;
+    private final WallMarkRebarService wallMarkRebarService;
 
-    public FileRunner(FileExtractor fileExtractor) {
+    public FileRunner(FileExtractor fileExtractor, WallMarkRebarService wallMarkRebarService) {
         this.fileExtractor = fileExtractor;
+        this.wallMarkRebarService = wallMarkRebarService;
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        this.fileExtractor.init("C:\\Users\\we hwan\\Documents\\카카오톡 받은 파일\\T1.txt");
+        String directory = InputView.inputDirectory();
 
-        this.fileExtractor.readLines();
+        for (File file : new File(directory).listFiles()) {
 
-        this.fileExtractor.printTemp();
+            log.info("Read File : " + file.getName());
+            this.fileExtractor.init(file);
+
+            this.fileExtractor.readLines();
+        }
+
+        FileLoader.loadResult(this.createResultFileName(directory)
+                            , this.wallMarkRebarService.findGroupByRebars());
+    }
+
+    private String createResultFileName(String directory) {
+        return directory + "\\result_"
+                + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
+                + ".txt";
     }
 }

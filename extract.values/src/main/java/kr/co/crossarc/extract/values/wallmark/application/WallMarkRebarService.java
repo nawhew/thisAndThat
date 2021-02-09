@@ -2,7 +2,7 @@ package kr.co.crossarc.extract.values.wallmark.application;
 
 import kr.co.crossarc.extract.values.wallmark.domain.WallMarkRebar;
 import kr.co.crossarc.extract.values.wallmark.domain.WallMarkRebarRepository;
-import kr.co.crossarc.extract.values.wallmark.dto.WallMarkRebarOrigin;
+import kr.co.crossarc.extract.values.wallmark.dto.WallMarkRebarRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +30,17 @@ public class WallMarkRebarService {
         return line.trim().startsWith("*.Wall Mark");
     }
 
-    public void saveWallMarkRebar(WallMarkRebarOrigin wallMarkRebarOrigin) {
-        WallMarkRebar wallMarkRebar = wallMarkRebarOrigin.toEntity();
+    public void saveWallMarkRebar(WallMarkRebarRequest wallMarkRebarRequest) {
+        WallMarkRebar wallMarkRebar = wallMarkRebarRequest.toEntity();
         this.wallMarkRebarRepository.save(wallMarkRebar);
     }
 
     public List<WallMarkRebar> findAll() {
         return this.wallMarkRebarRepository.findAll();
+    }
+
+    public List<WallMarkRebar> findGroupByRebars() {
+        return this.wallMarkRebarRepository.findGroupByRebars();
     }
 
 }
