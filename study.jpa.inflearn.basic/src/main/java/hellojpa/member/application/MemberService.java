@@ -1,4 +1,6 @@
-package hellojpa;
+package hellojpa.member.application;
+
+import hellojpa.member.domain.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -7,13 +9,13 @@ import javax.persistence.Persistence;
 import java.util.List;
 import java.util.Optional;
 
-public class JpaApplication {
+public class MemberService {
 
     private final EntityManagerFactory entityManagerFactory;
     private final EntityManager entityManager;
     private final EntityTransaction transaction;
 
-    public JpaApplication() {
+    public MemberService() {
         this.entityManagerFactory = Persistence.createEntityManagerFactory("hello");
         this.entityManager = entityManagerFactory.createEntityManager();
         this.transaction = entityManager.getTransaction();
@@ -85,7 +87,7 @@ public class JpaApplication {
     }
 
     public static void main(String[] args) {
-        JpaApplication jpaApplication = new JpaApplication();
+        MemberService jpaApplication = new MemberService();
         jpaApplication.start();
         Member member = jpaApplication.createMember(3L, "test2").get();
         Member foundMember = jpaApplication.findMember(member.getId()).get();

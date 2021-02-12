@@ -1,4 +1,4 @@
-package hellojpa;
+package hellojpa.member.domain;
 
 import lombok.Getter;
 import lombok.Setter;
