@@ -30,6 +30,14 @@ public class WallMarkRebar {
 
     private int horizonRebarInterval;
 
-    public WallMarkRebar() {};
+    public WallMarkRebar() {}
 
+    public String toStringForPrintResult() {
+        return "" +
+                "wallId=" + wallId +
+                ", story=" + story +
+                ", verticalRebar" + verticalRebarDValue + "@" + verticalRebarInterval +
+                ", horizonRebarDValue=" + horizonRebarDValue + "@" + horizonRebarInterval
+                ;
+    }
 }

@@ -4,9 +4,12 @@ import kr.co.crossarc.extract.values.wallmark.domain.WallMarkRebar;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
-@Getter @Setter @ToString
-public class WallMarkRebarOrigin {
+@Getter @Setter @ToString @Slf4j
+public class WallMarkRebarRequest {
+    private static final String REGEX_REBAR_DELIMITER = "@";
+    private static final String REGEX_REBAR_AS_DELEMITER = "\\.";
 
     private String wallId;
 
@@ -38,10 +41,10 @@ public class WallMarkRebarOrigin {
 
     private String endRebar;
 
-    public WallMarkRebarOrigin() {
+    public WallMarkRebarRequest() {
     }
 
-    public WallMarkRebarOrigin(String wallId, String line) {
+    public WallMarkRebarRequest(String wallId, String line) {
         String[] splitLine = line.split("\\s+");
         this.wallId = wallId;
         this.story = splitLine[0];
@@ -63,7 +66,7 @@ public class WallMarkRebarOrigin {
     }
 
     public WallMarkRebar toEntity() {
-        System.out.println("변경 요청 :" + this.toString());
+        log.trace("변경 요청 :" + this.toString());
         return WallMarkRebar.builder()
                 .wallId(this.wallId)
                 .story(this.story)
@@ -75,18 +78,18 @@ public class WallMarkRebarOrigin {
     }
 
     private String findVerticalRebarDValue() {
-        return this.verticalRebar.split("@")[0].split("\\.")[1];
+        return this.verticalRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[1];
     }
 
     private int findVerticalRebarInterval() {
-        return Integer.parseInt(this.verticalRebar.split("@")[1]);
+        return Integer.parseInt(this.verticalRebar.split(REGEX_REBAR_DELIMITER)[1]);
     }
 
     private String findHorizonRebarDValue() {
-        return this.horizonRebar.split("@")[0].split("\\.")[1];
+        return this.horizonRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[1];
     }
 
     private int findHorizonRebarInterval() {
-        return Integer.parseInt(this.horizonRebar.split("@")[1]);
+        return Integer.parseInt(this.horizonRebar.split(REGEX_REBAR_DELIMITER)[1]);
     }
 }
