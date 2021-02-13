@@ -9,20 +9,26 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "MEMBER")
 @Getter @Setter @ToString @NoArgsConstructor
-public class Member {
+public class MemberOld {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MEMBER_ID")
     private Long id;
 
     private String name;
 
-    private String city;
+    private Integer age;
 
-    private String street;
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
 
-    private String zipcode;
+//    @Temporal(TemporalType.TIMESTAMP)
+//    LocalDateTime default = TemporalType.TIMESTAMP
+    private LocalDateTime createdDate;
+
+    private LocalDateTime lastModifiedDate;
+
+    @Lob
+    private String description;
 }

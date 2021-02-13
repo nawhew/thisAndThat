@@ -1,6 +1,6 @@
 package hellojpa.member.application;
 
-import hellojpa.member.domain.Member;
+import hellojpa.member.domain.MemberOld;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,14 +9,14 @@ import javax.persistence.Persistence;
 import java.util.List;
 import java.util.Optional;
 
-public class MemberService {
+public class MemberOldService {
 
     private final EntityManagerFactory entityManagerFactory;
     private final EntityManager entityManager;
     private final EntityTransaction transaction;
 
-    public MemberService() {
-        this.entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+    public MemberOldService() {
+        this.entityManagerFactory = Persistence.createEntityManagerFactory("hello-shop");
         this.entityManager = entityManagerFactory.createEntityManager();
         this.transaction = entityManager.getTransaction();
     }
@@ -30,55 +30,55 @@ public class MemberService {
         this.entityManagerFactory.close();
     }
 
-    public Optional<Member> createMember(String name) {
+    public Optional<MemberOld> createMember(String name) {
         try {
-            Member member = new Member();
-            member.setName(name);
+            MemberOld memberOld = new MemberOld();
+            memberOld.setName(name);
 
-            this.entityManager.persist(member);
+            this.entityManager.persist(memberOld);
             this.transaction.commit();
-            return Optional.of(member);
+            return Optional.of(memberOld);
         } catch (Exception e) {
             this.transaction.rollback();
             return Optional.empty();
         }
     }
 
-    public Optional<Member> findMember(Long id) {
+    public Optional<MemberOld> findMember(Long id) {
         this.transaction.begin();
         try {
-            Member member = this.entityManager.find(Member.class, id);
+            MemberOld memberOld = this.entityManager.find(MemberOld.class, id);
             this.transaction.commit();
-            return Optional.of(member);
+            return Optional.of(memberOld);
         } catch (Exception e) {
             this.transaction.rollback();
             return Optional.empty();
         }
     }
 
-    public Optional<List<Member>> findMemberByJPQL(Long id) {
+    public Optional<List<MemberOld>> findMemberByJPQL(Long id) {
         this.transaction.begin();
         try {
-            List<Member> members = this.entityManager
-                    .createQuery("select m from Member m", Member.class)
+            List<MemberOld> memberOlds = this.entityManager
+                    .createQuery("select m from Member m", MemberOld.class)
 //                    .setFirstResult(5)    // 이런식으로 페이징도 쉽게 가능
 //                    .setMaxResults(10)
                     .getResultList();
 
             this.transaction.commit();
-            return Optional.of(members);
+            return Optional.of(memberOlds);
         } catch (Exception e) {
             this.transaction.rollback();
             return Optional.empty();
         }
     }
 
-    public Optional<Member> updateMember(Member member) {
+    public Optional<MemberOld> updateMember(MemberOld memberOld) {
         this.transaction.begin();
         try {
-            this.entityManager.persist(member);
+            this.entityManager.persist(memberOld);
             this.transaction.commit();
-            return Optional.of(member);
+            return Optional.of(memberOld);
         } catch (Exception e) {
             this.transaction.rollback();
             return Optional.empty();
@@ -86,14 +86,14 @@ public class MemberService {
     }
 
     public static void main(String[] args) {
-        MemberService jpaApplication = new MemberService();
+        MemberOldService jpaApplication = new MemberOldService();
         jpaApplication.start();
-        Member member = jpaApplication.createMember("test2").get();
-        Member foundMember = jpaApplication.findMember(member.getId()).get();
-        foundMember.setName("change name");
-        Member updatedMember = jpaApplication.updateMember(foundMember).get();
+        MemberOld memberOld = jpaApplication.createMember("test2").get();
+        MemberOld foundMemberOld = jpaApplication.findMember(memberOld.getId()).get();
+        foundMemberOld.setName("change name");
+        MemberOld updatedMemberOld = jpaApplication.updateMember(foundMemberOld).get();
 
-        System.out.println("수정 된 유저 : " + updatedMember);
+        System.out.println("수정 된 유저 : " + updatedMemberOld);
         jpaApplication.end();
     }
 }
