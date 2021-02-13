@@ -30,10 +30,9 @@ public class MemberService {
         this.entityManagerFactory.close();
     }
 
-    public Optional<Member> createMember(long id, String name) {
+    public Optional<Member> createMember(String name) {
         try {
             Member member = new Member();
-            member.setId(id);
             member.setName(name);
 
             this.entityManager.persist(member);
@@ -89,7 +88,7 @@ public class MemberService {
     public static void main(String[] args) {
         MemberService jpaApplication = new MemberService();
         jpaApplication.start();
-        Member member = jpaApplication.createMember(3L, "test2").get();
+        Member member = jpaApplication.createMember("test2").get();
         Member foundMember = jpaApplication.findMember(member.getId()).get();
         foundMember.setName("change name");
         Member updatedMember = jpaApplication.updateMember(foundMember).get();
