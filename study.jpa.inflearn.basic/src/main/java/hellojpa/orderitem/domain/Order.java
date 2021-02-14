@@ -1,5 +1,6 @@
 package hellojpa.orderitem.domain;
 
+import hellojpa.delivery.domain.Delivery;
 import hellojpa.member.domain.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,10 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
 
     public void setMember(Member member) {
         this.member = member;
