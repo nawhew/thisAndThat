@@ -1,5 +1,6 @@
 package hellojpa.member.domain;
 
+import hellojpa.common.BaseEntity;
 import hellojpa.orderitem.domain.Order;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "MEMBER")
 @Getter @Setter @ToString @NoArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

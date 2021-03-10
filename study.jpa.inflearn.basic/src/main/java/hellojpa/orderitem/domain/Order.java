@@ -1,5 +1,6 @@
 package hellojpa.orderitem.domain;
 
+import hellojpa.common.BaseEntity;
 import hellojpa.delivery.domain.Delivery;
 import hellojpa.member.domain.Member;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "ORDERS")
 @Getter @Setter @NoArgsConstructor @ToString
-public class Order {
+public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
