@@ -45,24 +45,40 @@ public class WallMarkRebarRequest {
     }
 
     public WallMarkRebarRequest(String wallId, String line) {
-        String[] splitLine = line.split("\\s+");
-        this.wallId = wallId;
-        this.story = splitLine[0];
-        this.HTw = splitLine[1];
-        this.hw = splitLine[2];
-        this.fck = splitLine[3];
-        this.fy = splitLine[4];
-        this.fys = splitLine[5];
-        this.pu = splitLine[6];
-        this.mc1 = splitLine[7];
-        this.mc2 = splitLine[8];
-        this.mc3 = splitLine[9];
-        this.vu1 = splitLine[10];
-        this.vu2 = splitLine[11];
-        this.vu3 = splitLine[12];
-        this.verticalRebar = splitLine[13];
-        this.horizonRebar = splitLine[14];
-        this.endRebar = splitLine[15];
+        String[] splitLine = this.deleteBracket(line).split("\\s+");
+
+        if(isData(splitLine[0])) {
+            this.wallId = wallId;
+            this.story = splitLine[0];
+            this.HTw = splitLine[1];
+            this.hw = splitLine[2];
+            this.fck = splitLine[3];
+            this.fy = splitLine[4];
+            this.fys = splitLine[5];
+            this.pu = splitLine[6];
+            this.mc1 = splitLine[7];
+            this.vu1 = splitLine[8];
+            this.verticalRebar = splitLine[9];
+            this.horizonRebar = splitLine[10];
+            this.endRebar = splitLine[11];
+        } else {
+            throw new IllegalArgumentException("데이터가 아닙니다. (*F, B*, PIT)");
+        }
+    }
+
+    private boolean isData(String story) {
+        return story.matches("^[0-9]*F") || story.matches("^B[0-9]*") || story.equals("PIT");
+    }
+
+    private String deleteBracket(String line) {
+        while (line.contains("(")) {
+            int bracketStartIndex = line.indexOf("(");
+            int bracketEndIndex = line.indexOf(")");
+            line = line.substring(0, bracketStartIndex)
+                    + line.substring(bracketEndIndex + 1);
+            log.trace("괄호 삭제 : " + line);
+        }
+        return line;
     }
 
     public WallMarkRebar toEntity() {
@@ -78,7 +94,8 @@ public class WallMarkRebarRequest {
     }
 
     private String findVerticalRebarDValue() {
-        return this.verticalRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[1];
+        return this.verticalRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[1]
+                .replace("D", "");
     }
 
     private int findVerticalRebarInterval() {
@@ -86,7 +103,8 @@ public class WallMarkRebarRequest {
     }
 
     private String findHorizonRebarDValue() {
-        return this.horizonRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[1];
+        return this.horizonRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[1]
+                .replace("D", "");
     }
 
     private int findHorizonRebarInterval() {

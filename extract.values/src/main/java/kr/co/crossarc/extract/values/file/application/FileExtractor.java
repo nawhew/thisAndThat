@@ -48,9 +48,11 @@ public class FileExtractor {
                     continue;
                 }
                 this.wallMarkRebarService.saveWallMarkRebar(new WallMarkRebarRequest(wallMark, line));
-            } catch (Exception e) {
-                log.trace("오류 난 줄 : [" + line + "]");
+            } catch (IllegalArgumentException e) {
                 log.trace(ExceptionUtils.getStackTrace(e));
+            } catch (Exception e) {
+                log.error("(" + wallMark + ") 오류 난 줄 : [" + line + "]");
+                log.error(ExceptionUtils.getStackTrace(e));
             }
         }
     }
