@@ -12,15 +12,32 @@ public interface WallMarkRebarRepository extends JpaRepository<WallMarkRebar, Lo
      * @return
      */
     @Query(value = "SELECT NEW kr.co.crossarc.extract.values.wallmark.domain.WallMarkRebar(" +
-            " MIN(WMR.id)" +
+            " WMR.id" +
             ", WMR.wallId" +
             ", WMR.story" +
+            ", WMR.verticalValue" +
             ", WMR.verticalRebarDValue" +
-            ", MIN(WMR.verticalRebarInterval)" +
+            ", WMR.verticalRebarInterval" +
+            ", WMR.horizonValue" +
             ", WMR.horizonRebarDValue" +
-            ", MIN(WMR.horizonRebarInterval))" +
-            " FROM WallMarkRebar WMR" +
-            " GROUP BY (WMR.wallId, WMR.story, WMR.verticalRebarDValue, WMR.horizonRebarDValue)" +
-            " ORDER BY (WMR.wallId, WMR.story) DESC")
+            ", WMR.horizonRebarInterval" +
+            ")" +
+            " FROM WallMarkRebar WMR" )
+//            " GROUP BY (WMR.wallId, WMR.story)" +
+//            " ORDER BY (WMR.wallId, WMR.story) DESC")
     List<WallMarkRebar> findGroupByRebars();
+
+
+    // back up
+//    @Query(value = "SELECT NEW kr.co.crossarc.extract.values.wallmark.domain.WallMarkRebar(" +
+//            " MIN(WMR.id)" +
+//            ", WMR.wallId" +
+//            ", WMR.story" +
+//            ", WMR.verticalRebarDValue" +
+//            ", MIN(WMR.verticalRebarInterval)" +
+//            ", WMR.horizonRebarDValue" +
+//            ", MIN(WMR.horizonRebarInterval))" +
+//            " FROM WallMarkRebar WMR" +
+//            " GROUP BY (WMR.wallId, WMR.story, WMR.verticalRebarDValue, WMR.horizonRebarDValue)" +
+//            " ORDER BY (WMR.wallId, WMR.story) DESC")
 }

@@ -86,25 +86,33 @@ public class WallMarkRebarRequest {
         return WallMarkRebar.builder()
                 .wallId(this.wallId)
                 .story(this.story)
+                .verticalValue(this.findVerticalValue())
                 .verticalRebarDValue(this.findVerticalRebarDValue())
                 .verticalRebarInterval(this.findVerticalRebarInterval())
+                .horizonValue(this.findHorizonValue())
                 .horizonRebarDValue(this.findHorizonRebarDValue())
                 .horizonRebarInterval(this.findHorizonRebarInterval())
                 .build();
     }
 
+    private int findVerticalValue() {
+        return Integer.parseInt(this.verticalRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[0]);
+    }
+
     private String findVerticalRebarDValue() {
-        return this.verticalRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[1]
-                .replace("D", "");
+        return this.verticalRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[1];
     }
 
     private int findVerticalRebarInterval() {
         return Integer.parseInt(this.verticalRebar.split(REGEX_REBAR_DELIMITER)[1]);
     }
 
+    private int findHorizonValue() {
+        return Integer.parseInt(this.horizonRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[0]);
+    }
+
     private String findHorizonRebarDValue() {
-        return this.horizonRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[1]
-                .replace("D", "");
+        return this.horizonRebar.split(REGEX_REBAR_DELIMITER)[0].split(REGEX_REBAR_AS_DELEMITER)[1];
     }
 
     private int findHorizonRebarInterval() {
