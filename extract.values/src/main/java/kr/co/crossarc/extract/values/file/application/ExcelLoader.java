@@ -44,6 +44,8 @@ public class ExcelLoader {
         columnInfoRow.createCell(1).setCellValue("story");
         columnInfoRow.createCell(2).setCellValue("vertical rebar");
         columnInfoRow.createCell(3).setCellValue("horizon rebar");
+        columnInfoRow.createCell(4).setCellValue("vertical value");
+        columnInfoRow.createCell(5).setCellValue("horizon value");
     }
 
     /**
@@ -61,6 +63,8 @@ public class ExcelLoader {
                                                         + "@" + wallMarkRebar.getVerticalRebarInterval());
             row.createCell(3).setCellValue(wallMarkRebar.getHorizonRebarDValue()
                                                         + "@" + wallMarkRebar.getHorizonRebarInterval());
+            row.createCell(4).setCellValue(wallMarkRebar.getVerticalValue());
+            row.createCell(5).setCellValue(wallMarkRebar.getHorizonValue());
         }
     }
 }

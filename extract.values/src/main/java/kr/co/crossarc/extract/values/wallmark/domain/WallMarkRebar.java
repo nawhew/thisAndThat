@@ -1,9 +1,6 @@
 package kr.co.crossarc.extract.values.wallmark.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Getter @Builder @AllArgsConstructor @ToString
+@Getter @Setter @Builder @AllArgsConstructor @ToString
 public class WallMarkRebar {
 
     @Id
@@ -22,9 +19,13 @@ public class WallMarkRebar {
 
     private String story;
 
+    private int verticalValue;
+
     private String verticalRebarDValue;
 
     private int verticalRebarInterval;
+
+    private int horizonValue;
 
     private String horizonRebarDValue;
 
@@ -36,8 +37,8 @@ public class WallMarkRebar {
         return "" +
                 "wallId=" + wallId +
                 ", story=" + story +
-                ", verticalRebar" + verticalRebarDValue + "@" + verticalRebarInterval +
-                ", horizonRebarDValue=" + horizonRebarDValue + "@" + horizonRebarInterval
+                ", verticalRebar=" + verticalValue + "." + verticalRebarDValue + "@" + verticalRebarInterval +
+                ", horizonRebar=" + horizonValue + "." + horizonRebarDValue + "@" + horizonRebarInterval
                 ;
     }
 }
